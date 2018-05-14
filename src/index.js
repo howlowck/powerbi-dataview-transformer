@@ -1,6 +1,6 @@
-import get from 'lodash/get'
-import zip from 'lodash/zip'
-import assign from 'lodash/assign'
+import get from 'lodash.get'
+import zip from 'lodash.zip'
+import assign from 'lodash.assign'
 
 export function categoryTransform (dataview) {
   'use strict'
