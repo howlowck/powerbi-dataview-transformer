@@ -53,6 +53,9 @@ The Transformed array will look like this
 
 To Install: `npm install --save powerbi-dataview-transformer`
 
+In `pbiviz.json`, Add `"node_modules/powerbi-dataview-transformer/dist/index.js"` under `ExternalJS` array.
+In `tsconfig.json`, Add `"node_modules/powerbi-dataview-transformer/types.d.ts"` under `files` array.
+
 Then in your `visual.ts`
 
 ```ts
