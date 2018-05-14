@@ -53,8 +53,14 @@ The Transformed array will look like this
 
 To Install: `npm install --save powerbi-dataview-transformer`
 
+Then in your `visual.ts`
+
 ```ts
-import {categoryTransform} from 'powerbi-dataview-parser'
+interface Window {
+  d3: typeof d3;
+  _: typeof _;
+  dataviewTransformer: typeof dataviewTransformer; // <-- this line
+}
 
 class Visual {
   ...
@@ -70,7 +76,7 @@ class Visual {
       // parse data
 
       const dataView: DataView = options.dataViews[0]
-      const transformedData = categoryTransform<Datum>(dataview)
+      const transformedData = window.dataviewTransformer.categoryTransform<Datum>(dataview)
       // transformedData = [{name: 'One', width: 15, targetHeight: 100, actualHeight: 10}, ...]
   }
 }
