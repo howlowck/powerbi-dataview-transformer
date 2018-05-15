@@ -190,7 +190,7 @@ const inputDataview = {
 
 describe('categoryTransform function test', () => {
   it('should return Expected Object', () => {
-    var result = index.categoryTransform(inputDataview)
+    var result = index.categoryTransform(inputDataview, 'name')
     expect(result).to.have.nested.property('[0].name', 'Three')
     expect(result).to.have.nested.property('[0].actualHeight', 0.055)
     expect(result).to.have.nested.property('[0].width', 10000000)

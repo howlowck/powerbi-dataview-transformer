@@ -2,7 +2,7 @@ import get from 'lodash.get'
 import zip from 'lodash.zip'
 import assign from 'lodash.assign'
 
-export function categoryTransform (dataview, selectionBuilder) {
+export function categoryTransform (dataview, groupingName, selectionBuilder) {
   'use strict'
   const categoriesOrg = get(dataview, 'categorical.categories', [])
   const valuesOrg = get(dataview, 'categorical.values', [])
@@ -14,9 +14,13 @@ export function categoryTransform (dataview, selectionBuilder) {
     }))
   }
 
-  const categories = categoriesOrg.map(parseCategoricalColumnValues) // [[{name: 'one'}, {name: 'two'}]]
+  const categoriesFiltered = categoriesOrg
+    .filter(category => Object.keys(get(category, 'source.roles'))[0] === groupingName)
+
+  const categories = categoriesFiltered.map(parseCategoricalColumnValues)
 
   const values = valuesOrg.map(parseCategoricalColumnValues)
+  // [[{sales: 100}, {sales: 200}], [{yield: 15, yield: 20}]]
 
   const preAssigned = zip(...categories, ...values)
 
@@ -27,7 +31,7 @@ export function categoryTransform (dataview, selectionBuilder) {
       return {
         ...d,
         selectionId: selectionBuilder()
-          .withCategory(categoriesOrg, i)
+          .withCategory(categoriesFiltered[0], i)
           .createSelectionId()
       }
     })
