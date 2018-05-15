@@ -2,7 +2,7 @@ import get from 'lodash.get'
 import zip from 'lodash.zip'
 import assign from 'lodash.assign'
 
-export function categoryTransform (dataview) {
+export function categoryTransform (dataview, selectionBuilder) {
   'use strict'
   const categoriesOrg = get(dataview, 'categorical.categories', [])
   const valuesOrg = get(dataview, 'categorical.values', [])
@@ -20,5 +20,18 @@ export function categoryTransform (dataview) {
 
   const preAssigned = zip(...categories, ...values)
 
-  return preAssigned.map((d) => assign({}, ...d))
+  let transformed = preAssigned.map((d) => assign({}, ...d))
+
+  if (selectionBuilder) {
+    transformed = transformed.map((d, i) => {
+      return {
+        ...d,
+        selectionId: selectionBuilder()
+          .withCategory(categoriesOrg, i)
+          .createSelectionId()
+      }
+    })
+  }
+
+  return transformed
 }

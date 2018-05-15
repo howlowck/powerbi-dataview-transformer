@@ -4,5 +4,12 @@
 // https://opensource.org/licenses/MIT
 
 export as namespace dataviewTransformer;
-export function categoryTransform<T>(dataview: any): T[];
+
+/**
+ * Transforms your category Data from PBI Dataview to a easily digestible data array
+ * 
+ * @param dataview Dataview options.dataviews[0]
+ * @param selectionIdBuilder host.createSelectionidBuilder
+ */
+export function categoryTransform<T>(dataview: any, createSelectionIdBuilder?: any): T[];
 
