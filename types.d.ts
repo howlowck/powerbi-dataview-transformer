@@ -10,7 +10,7 @@ export as namespace dataviewTransformer;
  * 
  * @param dataview Dataview options.dataviews[0]
  * @param groupingName string The name of the grouping in the capabilities.json file
- * @param selectionIdBuilder host.createSelectionidBuilder
+ * @param selectionIdBuilder powerbi.extensibility.ISelectionIdBuilder
  */
 export function categoryTransform<T>(dataview: any, groupingName: string, createSelectionIdBuilder?: any): T[];
 

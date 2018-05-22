@@ -78,8 +78,25 @@ class Visual {
       // parse data
 
       const dataView: DataView = options.dataViews[0]
-      const transformedData = window.dataviewTransformer.categoryTransform<Datum>(dataview)
+      const transformedData = window.dataviewTransformer.categoryTransform<Datum>(dataview, "id") // <-- "name" is the category that you want to select from your capabilities.json
       // transformedData = [{name: 'One', width: 15, targetHeight: 100, actualHeight: 10}, ...]
   }
 }
 ```
+
+## API Doc
+
+### `categoryTransform` Function
+
+#### **Parameters**
+* dataview (required)
+This is the dataview that is in the options object passed into the `update` function. Usually the dataview is found in `options.dataviews[0]` inside the `update` function.
+
+* category name (required)
+This is the value of `name` property of the category is defined in the `capabilities.json` file under `dataRoles`.  The returned array is going to be an array of data objects that is based on this catagory.
+
+* SelectionIdBuilder (optional)
+SelectionIdBuilder is the function that exists in the `options` object that is passed in the `constructor` function.  Since we need to pass this function in the `update` function.  One approach is to create store the `SelectionIdBuilder` in a class property, then use it in this function
+
+#### **Returns**
+* The function will return an array that is strongly typed to the datum shape you defined in your custom visual.  
